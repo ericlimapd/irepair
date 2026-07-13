@@ -1,4 +1,12 @@
+import { useState } from "react";
+import type { ServiceStatus } from "../types";
+
 export function NewServiceForm() {
+  const [clientName, setClientName] = useState("");
+  const [deviceModel, setDeviceModel] = useState("");
+  const [defect, setDefect] = useState("");
+  const [status, setStatus] = useState<ServiceStatus>("Aberto");
+
   return (
     <form className="mx-auto w-full max-w-7xl shrink-0 space-y-4 rounded-lg border border-border bg-surface px-6 py-6">
       <h2 className="font-heading text-xl font-semibold text-foreground">
@@ -14,6 +22,8 @@ export function NewServiceForm() {
             id="clientName"
             type="text"
             placeholder="Nome do cliente"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -26,6 +36,8 @@ export function NewServiceForm() {
             id="deviceModel"
             type="text"
             placeholder="Indique o nome do aparelho"
+            value={deviceModel}
+            onChange={(e) => setDeviceModel(e.target.value)}
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -38,6 +50,8 @@ export function NewServiceForm() {
             id="defect"
             type="text"
             placeholder="Indique o defeito do aparelho"
+            value={defect}
+            onChange={(e) => setDefect(e.target.value)}
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -49,6 +63,8 @@ export function NewServiceForm() {
           <div className="relative">
             <select
               id="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value as ServiceStatus)}
               className="h-10 w-full appearance-none rounded border border-border bg-input px-3 py-2 pr-10 text-foreground"
             >
               <option value="Aberto">Aberto</option>
