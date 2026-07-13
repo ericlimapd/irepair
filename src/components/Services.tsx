@@ -1,4 +1,57 @@
+import { ServiceCard } from "./ServiceCard";
+import type { ServiceOrder } from "../types";
+
+const testeServices: ServiceOrder[] = [
+  {
+    id: "1",
+    clientName: "Eric",
+    deviceModel: "iPhone 12",
+    defect: "Tela Quebrada",
+    status: "Aberto",
+    createdAt: new Date(),
+  },
+  {
+    id: "2",
+    clientName: "Eric",
+    deviceModel: "iPhone 12",
+    defect: "Tela Quebrada",
+    status: "Aberto",
+    createdAt: new Date(),
+  },
+  {
+    id: "3",
+    clientName: "Eric",
+    deviceModel: "iPhone 12",
+    defect: "Tela Quebrada",
+    status: "Aberto",
+    createdAt: new Date(),
+  },
+  {
+    id: "4",
+    clientName: "Eric",
+    deviceModel: "iPhone 12",
+    defect: "Tela Quebrada",
+    status: "Finalizado",
+    createdAt: new Date(),
+  },
+  {
+    id: "5",
+    clientName: "Eric",
+    deviceModel: "iPhone 12",
+    defect: "Tela Quebrada",
+    status: "Finalizado",
+    createdAt: new Date(),
+  },
+];
+
 export function Services() {
+  const openServices = testeServices.filter(
+    (service) => service.status === "Aberto"
+  );
+  const finishedServices = testeServices.filter(
+    (service) => service.status === "Finalizado"
+  );
+
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col rounded-lg border border-border bg-surface px-6 py-6 lg:min-h-0 lg:flex-1 lg:overflow-hidden">
       <h2 className="shrink-0 font-heading text-xl font-semibold text-foreground">
@@ -15,9 +68,9 @@ export function Services() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="h-32 rounded-lg border border-border bg-input" />
-            <div className="h-32 rounded-lg border border-border bg-input" />
-            <div className="h-32 rounded-lg border border-border bg-input" />
+            {openServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
           </div>
         </div>
 
@@ -30,7 +83,9 @@ export function Services() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="h-32 rounded-lg border border-border bg-input" />
+            {finishedServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
           </div>
         </div>
       </div>
