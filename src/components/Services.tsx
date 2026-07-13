@@ -6,12 +6,15 @@ interface ServicesProps {
 }
 
 export function Services({ services }: ServicesProps) {
-  const openServices = services.filter(
-    (service) => service.status === "Aberto"
-  );
-  const finishedServices = services.filter(
-    (service) => service.status === "Finalizado"
-  );
+  const byMostRecent = (a: ServiceOrder, b: ServiceOrder) =>
+    b.createdAt.getTime() - a.createdAt.getTime();
+
+  const openServices = services
+    .filter((service) => service.status === "Aberto")
+    .sort(byMostRecent);
+  const finishedServices = services
+    .filter((service) => service.status === "Finalizado")
+    .sort(byMostRecent);
 
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col rounded-lg border border-border bg-surface px-6 py-6 lg:min-h-0 lg:flex-1 lg:overflow-hidden">
