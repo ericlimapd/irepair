@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap');
 @import "tailwindcss";
 
-/*
-  Tailwind v4 le as variaveis dentro de @theme e gera classes utilitarias
-  automaticamente a partir delas. O prefixo do nome decide a categoria:
-  --font-*   -> font-{nome}     (ex: font-heading)
-  --color-*  -> bg-{nome}, text-{nome}, border-{nome}, etc (ex: bg-background)
-*/
 @theme {
   /* Typography */
   --font-heading: "Sora", sans-serif;
@@ -31,10 +25,6 @@
   --color-warning: #F3C969;
 }
 
-/*
-  Gradientes nao entram no @theme (nao sao "colors"), entao continuam
-  como custom properties normais. Uso: bg-[image:var(--gradient-logo)]
-*/
 :root {
   --gradient-logo: linear-gradient(90deg, #11626D 0%, #21BED3 100%);
   --gradient-button: linear-gradient(90deg, #0F7E8D 0%, #22B5C7 100%);
