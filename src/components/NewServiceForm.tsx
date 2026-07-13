@@ -1,14 +1,39 @@
 import { useState } from "react";
-import type { ServiceStatus } from "../types";
+import type { ServiceOrder, ServiceStatus } from "../types";
 
-export function NewServiceForm() {
+interface NewServiceFormProps {
+  onAddService: (service: ServiceOrder) => void;
+}
+
+export function NewServiceForm({ onAddService }: NewServiceFormProps) {
   const [clientName, setClientName] = useState("");
   const [deviceModel, setDeviceModel] = useState("");
   const [defect, setDefect] = useState("");
   const [status, setStatus] = useState<ServiceStatus>("Aberto");
 
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    onAddService({
+      id: crypto.randomUUID(),
+      clientName,
+      deviceModel,
+      defect,
+      status,
+      createdAt: new Date(),
+    });
+
+    setClientName("");
+    setDeviceModel("");
+    setDefect("");
+    setStatus("Aberto");
+  };
+
   return (
-    <form className="mx-auto w-full max-w-7xl shrink-0 space-y-4 rounded-lg border border-border bg-surface px-6 py-6">
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto w-full max-w-7xl shrink-0 space-y-4 rounded-lg border border-border bg-surface px-6 py-6"
+    >
       <h2 className="font-heading text-xl font-semibold text-foreground">
         Nova Ordem de Serviço
       </h2>
@@ -24,6 +49,7 @@ export function NewServiceForm() {
             placeholder="Nome do cliente"
             value={clientName}
             onChange={(e) => setClientName(e.target.value)}
+            required
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -38,6 +64,7 @@ export function NewServiceForm() {
             placeholder="Indique o nome do aparelho"
             value={deviceModel}
             onChange={(e) => setDeviceModel(e.target.value)}
+            required
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -52,6 +79,7 @@ export function NewServiceForm() {
             placeholder="Indique o defeito do aparelho"
             value={defect}
             onChange={(e) => setDefect(e.target.value)}
+            required
             className="h-10 rounded border border-border bg-input px-3 py-2 text-foreground placeholder-muted-foreground"
           />
         </div>
@@ -88,7 +116,7 @@ export function NewServiceForm() {
         </div>
 
         <button
-          type="button"
+          type="submit"
           className="h-10 w-full rounded bg-[image:var(--gradient-button)] px-4 font-heading font-semibold text-white transition-opacity hover:opacity-90 lg:h-11"
         >
           Salvar
