@@ -1,12 +1,15 @@
 import { Header } from "./components/Header";
 import { NewServiceForm } from "./components/NewServiceForm";
+import { Services } from "./components/Services";
 
 export default function App() {
   return (
-    <>
+    <div className="flex flex-col lg:h-screen lg:overflow-hidden">
       <Header />
-      <NewServiceForm />
-    </>
+      <main className="flex flex-col gap-5 px-6 py-5 lg:min-h-0 lg:flex-1 lg:overflow-hidden">
+        <NewServiceForm />
+        <Services />
+      </main>
+    </div>
   );
 }
-

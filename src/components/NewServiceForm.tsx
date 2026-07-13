@@ -1,6 +1,6 @@
 export function NewServiceForm() {
   return (
-    <form className="mx-auto my-5 max-w-7xl space-y-4 rounded-lg border border-border bg-surface px-6 py-8">
+    <form className="mx-auto w-full max-w-7xl shrink-0 space-y-4 rounded-lg border border-border bg-surface px-6 py-6">
       <h2 className="font-heading text-xl font-semibold text-foreground">
         Nova Ordem de Serviço
       </h2>
