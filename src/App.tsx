@@ -4,51 +4,8 @@ import { NewServiceForm } from "./components/NewServiceForm";
 import { Services } from "./components/Services";
 import type { ServiceOrder } from "./types";
 
-const initialServices: ServiceOrder[] = [
-  {
-    id: "1",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "2",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "3",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "4",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Finalizado",
-    createdAt: new Date(),
-  },
-  {
-    id: "5",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Finalizado",
-    createdAt: new Date(),
-  },
-];
-
 export default function App() {
-  const [services, setServices] = useState<ServiceOrder[]>(initialServices);
+  const [services, setServices] = useState<ServiceOrder[]>([]);
 
   const handleAddService = (service: ServiceOrder) => {
     setServices((prev) => [...prev, service]);
