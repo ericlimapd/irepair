@@ -1,54 +1,15 @@
 import { ServiceCard } from "./ServiceCard";
 import type { ServiceOrder } from "../types";
 
-const testeServices: ServiceOrder[] = [
-  {
-    id: "1",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "2",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "3",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Aberto",
-    createdAt: new Date(),
-  },
-  {
-    id: "4",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Finalizado",
-    createdAt: new Date(),
-  },
-  {
-    id: "5",
-    clientName: "Eric",
-    deviceModel: "iPhone 12",
-    defect: "Tela Quebrada",
-    status: "Finalizado",
-    createdAt: new Date(),
-  },
-];
+interface ServicesProps {
+  services: ServiceOrder[];
+}
 
-export function Services() {
-  const openServices = testeServices.filter(
+export function Services({ services }: ServicesProps) {
+  const openServices = services.filter(
     (service) => service.status === "Aberto"
   );
-  const finishedServices = testeServices.filter(
+  const finishedServices = services.filter(
     (service) => service.status === "Finalizado"
   );
 
