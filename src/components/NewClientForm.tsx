@@ -91,7 +91,7 @@ export const NewClientForm = ({ onClientCreated }: NewClientFormProps) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="h-10 w-full rounded bg-[image:var(--gradient-button)] px-4 font-heading font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 lg:h-11"
+          className="h-10 w-full rounded bg-[image:var(--gradient-button)] px-4 font-heading font-semibold text-white transition-opacity hover:opacity-90 hover:cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 lg:h-11"
         >
           {isSubmitting ? "Salvando..." : "Salvar"}
         </button>

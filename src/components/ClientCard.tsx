@@ -41,7 +41,7 @@ export const ClientCard = ({ client, onDelete }: ClientCardProps) => {
         <button
           type="button"
           onClick={() => onDelete(id)}
-          className="mt-1 self-end rounded border border-border px-3 py-1.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-white"
+          className="mt-1 self-end rounded border border-border px-3 py-1.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-white hover:cursor-pointer"
         >
           Remover
         </button>
