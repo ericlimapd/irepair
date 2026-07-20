@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Services } from "../components/Services";
 import { NewServiceOrderForm } from "../components/NewServiceOrderForm";
 import { Loading } from "../components/Loading";
-import { getAllServiceOrders } from "../services/serviceOrderService";
+import {
+  getAllServiceOrders,
+  deleteServiceOrder,
+} from "../services/serviceOrderService";
 import { getAllClients } from "../services/clientService";
 import type { Client, ServiceOrder } from "../types";
 
@@ -40,6 +43,15 @@ export const ServiceOrdersPage = () => {
     setServiceOrders((prev) => [serviceOrder, ...prev]);
   };
 
+  const handleDeleteServiceOrder = async (id: number) => {
+    try {
+      await deleteServiceOrder(id);
+      setServiceOrders((prev) => prev.filter((order) => order.id !== id));
+    } catch {
+      setError("Não foi possível remover a ordem de serviço.");
+    }
+  };
+
   if (isLoading) return <Loading label="Carregando ordens de serviço..." />;
 
   if (error)
@@ -51,7 +63,11 @@ export const ServiceOrdersPage = () => {
         clients={clients}
         onServiceOrderCreated={handleServiceOrderCreated}
       />
-      <Services services={serviceOrders} clientNameOf={clientNameOf} />
+      <Services
+        services={serviceOrders}
+        clientNameOf={clientNameOf}
+        onDelete={handleDeleteServiceOrder}
+      />
     </>
   );
 };
