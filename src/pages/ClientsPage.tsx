@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ClientCard } from "../components/ClientCard";
 import { NewClientForm } from "../components/NewClientForm";
 import { Loading } from "../components/Loading";
-import { getAllClients } from "../services/clientService";
+import { getAllClients, deleteClient } from "../services/clientService";
 import type { Client } from "../types";
 
 export const ClientsPage = () => {
@@ -29,6 +29,15 @@ export const ClientsPage = () => {
     setClients((prev) => [client, ...prev]);
   };
 
+  const handleDeleteClient = async (id: number) => {
+    try {
+      await deleteClient(id);
+      setClients((prev) => prev.filter((client) => client.id !== id));
+    } catch {
+      setError("Não foi possível remover o cliente.");
+    }
+  };
+
   return (
     <>
       <NewClientForm onClientCreated={handleClientCreated} />
@@ -52,7 +61,11 @@ export const ClientsPage = () => {
           {!isLoading && !error && clients.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {clients.map((client) => (
-                <ClientCard key={client.id} client={client} />
+                <ClientCard
+                  key={client.id}
+                  client={client}
+                  onDelete={handleDeleteClient}
+                />
               ))}
             </div>
           )}

@@ -2,10 +2,11 @@ import type { Client } from "../types";
 
 interface ClientCardProps {
   client: Client;
+  onDelete?: (id: number) => void;
 }
 
-export const ClientCard = ({ client }: ClientCardProps) => {
-  const { name, phone, email } = client;
+export const ClientCard = ({ client, onDelete }: ClientCardProps) => {
+  const { id, name, phone, email } = client;
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card px-4 py-4">
@@ -35,6 +36,16 @@ export const ClientCard = ({ client }: ClientCardProps) => {
           {email}
         </span>
       </div>
+
+      {onDelete && (
+        <button
+          type="button"
+          onClick={() => onDelete(id)}
+          className="mt-1 self-end rounded border border-border px-3 py-1.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-white"
+        >
+          Remover
+        </button>
+      )}
     </div>
   );
 };
