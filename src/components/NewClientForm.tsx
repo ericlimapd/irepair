@@ -41,7 +41,7 @@ export const NewClientForm = ({ onClientCreated }: NewClientFormProps) => {
         Novo Cliente
       </h2>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr_1.4fr_0.8fr] lg:items-end">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_1fr_1.4fr_0.8fr] lg:gap-8 lg:items-end">
         <div className="flex flex-col gap-1">
           <label htmlFor="name" className="text-sm text-muted-foreground">
             Nome

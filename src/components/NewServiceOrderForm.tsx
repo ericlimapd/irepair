@@ -53,7 +53,7 @@ export const NewServiceOrderForm = ({
         Nova Ordem de Serviço
       </h2>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_1.2fr_1.2fr_0.8fr_1fr] lg:items-end">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.2fr_1.2fr_1.2fr_0.8fr_1fr] lg:gap-8 lg:items-end">
         <div className="flex flex-col gap-1">
           <label htmlFor="clientId" className="text-sm text-muted-foreground">
             Cliente

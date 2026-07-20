@@ -1,6 +1,6 @@
 import logo from "../assets/ijunior-logo.svg";
 
-export function Header() {
+export const Header = () => {
   return (
     <header className="flex flex-col items-center gap-2 border-b border-border py-5 text-center bg-surface">
       <div className="flex items-center gap-3">
@@ -15,4 +15,4 @@ export function Header() {
       </p>
     </header>
   );
-}
+};

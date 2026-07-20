@@ -33,16 +33,22 @@ export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) =>
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {openServices.map((service) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                clientName={clientNameOf(service.client_id)}
-                onDelete={onDelete}
-              />
-            ))}
-          </div>
+          {openServices.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Nenhuma ordem aberta.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {openServices.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  clientName={clientNameOf(service.client_id)}
+                  onDelete={onDelete}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">
@@ -53,16 +59,22 @@ export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) =>
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {finishedServices.map((service) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                clientName={clientNameOf(service.client_id)}
-                onDelete={onDelete}
-              />
-            ))}
-          </div>
+          {finishedServices.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Nenhuma ordem finalizada.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {finishedServices.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  clientName={clientNameOf(service.client_id)}
+                  onDelete={onDelete}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
