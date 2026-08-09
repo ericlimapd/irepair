@@ -1,12 +1,19 @@
 import type { ServiceOrder } from "../types";
+import { getStatusStyle } from "../utils/serviceOrderStatus";
 
 interface ServiceCardProps {
   service: ServiceOrder;
+  clientName: string;
+  onDelete?: (id: number) => void;
 }
 
-export function ServiceCard({ service }: ServiceCardProps) {
-  const { clientName, deviceModel, defect, status } = service;
-  const isOpen = status === "Aberto";
+export const ServiceCard = ({
+  service,
+  clientName,
+  onDelete,
+}: ServiceCardProps) => {
+  const { id, device, issue, status } = service;
+  const statusStyle = getStatusStyle(status);
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card px-4 py-4">
@@ -21,16 +28,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
 
         <span
-          className={`flex items-center gap-1.5 text-sm font-medium ${
-            isOpen ? "text-success" : "text-destructive"
-          }`}
+          className={`flex items-center gap-1.5 text-sm font-medium ${statusStyle.textClass}`}
         >
-          <span
-            className={`h-2 w-2 rounded-full ${
-              isOpen ? "bg-success" : "bg-destructive"
-            }`}
-          />
-          {status}
+          <span className={`h-2 w-2 rounded-full ${statusStyle.dotClass}`} />
+          {statusStyle.label}
         </span>
       </div>
 
@@ -39,7 +40,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           Modelo
         </span>
         <span className="font-heading text-base font-medium text-foreground">
-          {deviceModel}
+          {device}
         </span>
       </div>
 
@@ -48,9 +49,19 @@ export function ServiceCard({ service }: ServiceCardProps) {
           Defeito
         </span>
         <span className="font-heading text-base font-medium text-foreground">
-          {defect}
+          {issue}
         </span>
       </div>
+
+      {onDelete && (
+        <button
+          type="button"
+          onClick={() => onDelete(id)}
+          className="mt-1 self-end rounded border border-border px-3 py-1.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-white"
+        >
+          Remover
+        </button>
+      )}
     </div>
   );
-}
+};

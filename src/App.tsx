@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { Header } from "./components/Header";
-import { NewServiceForm } from "./components/NewServiceForm";
-import { Services } from "./components/Services";
-import type { ServiceOrder } from "./types";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { MainLayout } from "./layouts/MainLayout";
+import { DashboardPage } from "./pages/DashboardPage";
+import { ClientsPage } from "./pages/ClientsPage";
+import { ServiceOrdersPage } from "./pages/ServiceOrdersPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
-export default function App() {
-  const [services, setServices] = useState<ServiceOrder[]>([]);
-
-  const handleAddService = (service: ServiceOrder) => {
-    setServices((prev) => [...prev, service]);
-  };
-
+const App = () => {
   return (
-    <div className="flex flex-col lg:h-screen lg:overflow-hidden">
-      <Header />
-      <main className="flex flex-col gap-5 px-6 py-5 lg:min-h-0 lg:flex-1 lg:overflow-hidden">
-        <NewServiceForm onAddService={handleAddService} />
-        <Services services={services} />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/clients" element={<ClientsPage />} />
+          <Route path="/service-orders" element={<ServiceOrdersPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
+
+export default App;

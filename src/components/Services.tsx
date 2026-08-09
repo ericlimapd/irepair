@@ -3,17 +3,19 @@ import type { ServiceOrder } from "../types";
 
 interface ServicesProps {
   services: ServiceOrder[];
+  clientNameOf: (clientId: number) => string;
+  onDelete?: (id: number) => void;
 }
 
-export function Services({ services }: ServicesProps) {
+export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) => {
   const byMostRecent = (a: ServiceOrder, b: ServiceOrder) =>
-    b.createdAt.getTime() - a.createdAt.getTime();
+    b.created_at.localeCompare(a.created_at);
 
   const openServices = services
-    .filter((service) => service.status === "Aberto")
+    .filter((service) => service.status !== "done")
     .sort(byMostRecent);
   const finishedServices = services
-    .filter((service) => service.status === "Finalizado")
+    .filter((service) => service.status === "done")
     .sort(byMostRecent);
 
   return (
@@ -31,11 +33,22 @@ export function Services({ services }: ServicesProps) {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {openServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
+          {openServices.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Nenhuma ordem aberta.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {openServices.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  clientName={clientNameOf(service.client_id)}
+                  onDelete={onDelete}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">
@@ -46,13 +59,24 @@ export function Services({ services }: ServicesProps) {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {finishedServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
+          {finishedServices.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Nenhuma ordem finalizada.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {finishedServices.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  clientName={clientNameOf(service.client_id)}
+                  onDelete={onDelete}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
-}
+};
