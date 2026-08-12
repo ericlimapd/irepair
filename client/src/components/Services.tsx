@@ -9,7 +9,7 @@ interface ServicesProps {
 
 export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) => {
   const byMostRecent = (a: ServiceOrder, b: ServiceOrder) =>
-    b.created_at.localeCompare(a.created_at);
+    b.createdAt.localeCompare(a.createdAt);
 
   const openServices = services
     .filter((service) => service.status !== "done")
@@ -43,7 +43,7 @@ export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) =>
                 <ServiceCard
                   key={service.id}
                   service={service}
-                  clientName={clientNameOf(service.client_id)}
+                  clientName={clientNameOf(service.clientId)}
                   onDelete={onDelete}
                 />
               ))}
@@ -69,7 +69,7 @@ export const Services = ({ services, clientNameOf, onDelete }: ServicesProps) =>
                 <ServiceCard
                   key={service.id}
                   service={service}
-                  clientName={clientNameOf(service.client_id)}
+                  clientName={clientNameOf(service.clientId)}
                   onDelete={onDelete}
                 />
               ))}
