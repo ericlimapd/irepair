@@ -1,5 +1,6 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { Header } from "../components/Header";
+import { useAuth } from "../contexts/AuthContext";
 
 function navLinkClass({ isActive }: { isActive: boolean }) {
   return `rounded-full px-4 py-2 font-heading text-sm font-medium transition-colors ${
@@ -10,6 +11,14 @@ function navLinkClass({ isActive }: { isActive: boolean }) {
 }
 
 export const MainLayout = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   return (
     <div className="flex flex-col lg:h-screen lg:overflow-hidden">
       <Header />
@@ -24,6 +33,13 @@ export const MainLayout = () => {
         <NavLink to="/service-orders" className={navLinkClass}>
           Ordens de Serviço
         </NavLink>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="rounded-full px-4 py-2 font-heading text-sm font-medium text-muted-foreground transition-colors hover:text-destructive hover:cursor-pointer"
+        >
+          Sair
+        </button>
       </nav>
 
       <main className="flex flex-col gap-5 px-6 py-5 lg:min-h-0 lg:flex-1 lg:overflow-hidden">
