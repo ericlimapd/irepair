@@ -10,10 +10,26 @@ irepair/
   api/      back-end Express + Prisma + MySQL com autenticação JWT
 ```
 
+## Pré-requisitos
+
+- Node.js
+- MySQL rodando localmente (o banco `irepair_db` é criado automaticamente pela
+  primeira migration do Prisma — não precisa criá-lo manualmente)
+
 ## Como rodar
 
-São dois projetos independentes. Cada um tem seu próprio `.env` (copie de
-`.env.example`) e suas dependências (`npm install` dentro de cada pasta).
+São dois projetos independentes, cada um com seu próprio `.env` (copie de
+`.env.example`) e suas dependências (`npm install` dentro de cada pasta). É
+preciso ter os dois rodando ao mesmo tempo, em terminais separados.
+
+### Back-end
+
+```bash
+cd api
+npm install
+npx prisma migrate dev
+npm run dev
+```
 
 ### Front-end
 
@@ -23,10 +39,14 @@ npm install
 npm run dev
 ```
 
-### Back-end
+## Autenticação
 
-```bash
-cd api
-npm install
-npm run dev
-```
+O login é feito via `POST /auth/login`, que devolve um token JWT num cookie
+`httpOnly`. O navegador envia esse cookie automaticamente nas próximas
+requisições, então o front nunca lida com o token diretamente. Rotas de
+negócio (`/clients`, `/service-orders`) exigem esse cookie — sem ele, a API
+responde `401`.
+
+Para criar o primeiro usuário, use `POST /auth/register` (por exemplo, via
+Postman ou curl) com um corpo `{ "email": "...", "password": "..." }`, já que
+o front ainda não tem tela de cadastro.
